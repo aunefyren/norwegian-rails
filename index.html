@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="no">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Protype ticket ordering." />
+        <meta name="Norwegian Rails" content="index, follow" />
+
+        <title>Norwegian Rails</title>
+
+        <!-- Bootstrap 4 CSS and custom CSS -->
+        <link rel="stylesheet" type="text/css" href="css/custom.css" />
+        <link rel="shortcut icon" href="assets/favicons/favicon.ico" />
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="index.js"></script>
+        <script src="functions.js"></script>
+
+    </head>
+<body>
+
+<!-- navbar -->
+
+    <nav class="navbar">
+        <div class="nav-logo">
+            <a href="./"><img style="box-sizing: border-box;height: 100%;" src="assets/logo/logo.png"></a>
+        </div>
+
+        <div class="navbar-items">
+            <a class="navbar-brand show" href="./">Norwegian Rails</a>
+            <a class="nav-item show" href="#" id='tickets'>Tickets</a>
+            <a class="nav-item hide" href="#" id='account'>My account</a>
+            <a class="nav-item show" href="#" id='log_in'>Log in</a>
+            <a class="nav-item show" href="#" id='register'>Register</a>
+            <a class="nav-item hide" href="#" id='log_out'>Log out</a>
+        </div>
+
+    </nav>
+
+<!-- /navbar -->
+
+<!-- container -->
+<main role="main" class="container starter-template">
+
+    <div class="row">
+        <div class="col">
+
+            <!-- where prompt / messages will appear -->
+
+            <div id="response"></div>
+
+            <!-- where main content will appear -->
+            <div id="content"></div>
+
+        </div>
+    </div>
+
+</main>
+<!-- /container -->
+
+<script>
+var jwt;
+showLoggedOutMenu();
+//showLoggedInMenu();
+//jwt = getCookie('jwt');
+//getLogin(jwt);
+</script>
+
+<noscript>
+         <h3>This website requires JavaScript.</h3>
+</noscript>
+
+</body>
+</html>

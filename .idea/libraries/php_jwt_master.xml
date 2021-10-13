@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="php-jwt-master">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/api/libs/php-jwt-master.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
