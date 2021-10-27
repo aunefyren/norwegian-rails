@@ -153,6 +153,7 @@ function loadRegister() {
     `;
     document.getElementById('content').innerHTML = html;
 }
+
 function performRegister(){
     // get form data
     var user_email = document.getElementById("user_email").value;
@@ -218,7 +219,17 @@ function loadUser() {
         <form id='register_form' action='javascript:void(0);' onsubmit="return performRegister();" method="post" enctype="multipart/form-data">
         <div class='form-group'>
             <label for='user_email'>Email</label>
-            <input type="text" class="form-control" id="user_email" name="user_email" value="` + login_data.data.user_email + `" readonly>
+            <input type="text" class="form-control" id="user_email" name="user_email" value="` + login_data.data.user_email + `">
+        </div>
+
+        <div class='form-group'>
+            <label for='user_password'>New password</label>
+            <input type='password' class='form-control' id='user_password' name='user_password' placeholder='Write your new password.'>
+        </div>
+
+        <div class='form-group'>
+            <label for='user_password_2'>Repeat new password</label>
+            <input type='password' class='form-control' id='user_password_2' name='user_password_2' placeholder='Repeat your new password.'>
         </div>
 
         <div class='form-group'>
@@ -242,8 +253,8 @@ function loadUser() {
         </div>
 
         <div class='form-group'>
-            <label for='user_password'>Password</label>
-            <input type='password' class='form-control' id='user_password' name='user_password' placeholder='Write your password.' required>
+            <label for='user_password_orig'>Password</label>
+            <input type='password' class='form-control' id='user_password_orig' name='user_password_orig' placeholder='Write your password.' required>
         </div>
 
         <div class='form-group'>
@@ -253,5 +264,61 @@ function loadUser() {
         </form>
     </div>
     `;
+
     document.getElementById('content').innerHTML = html;
+}
+
+function performUser(){
+    // get form data
+    var user_email = document.getElementById("user_email").value;
+    var user_password_orig = document.getElementById("user_password_orig").value;
+    var user_password = document.getElementById("user_password").value;
+    var user_password_2 = document.getElementById("user_password_2").value;
+    var pass_change = false;
+    var email_change
+
+    if((user_password !== user_password_2) && (user_password !== '' && user_password_2 !== '')) {
+        error('The new passwords must match.');
+        return;
+    }
+
+    if((user_email !== login_data.data.user_email) && (user_password !== '' && user_password_2 !== '')) {
+        error('The new passwords must match.');
+        return;
+    }
+
+    var form = {"user_email" : user_email, "user_password" : user_password, "user_firstname" : user_firstname, "user_lastname" : user_lastname, "user_birth_date" : user_birth_date};
+    var form_data = JSON.stringify(form);
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            if(result = JSON.parse(this.responseText)) {
+                if(result.error) {
+                    // tell the user account was updated
+                    error(result.message);
+                    var password = document.getElementById("user_password");
+                    var password_2 = document.getElementById("user_password_2");
+                    password.value = "";
+                    password_2.value = "";
+                } else if(!result.error) {
+                    // store new jwt to coookie
+                    setCookie("jwt-nor-rails", result.jwt, 1);
+                    loadLogin();
+                    success(result.message);
+                }
+            } else {
+               error("Could not reach API.");
+            }
+
+        } else if(this.readyState == 4 && this.status !== 200) {
+            error("Could not reach API.");
+        } else {
+            info("Loading...");
+        }
+    };
+    xhttp.withCredentials = true;
+    xhttp.open("post", "api/create_user.php");
+    xhttp.send(form_data);
+    return false;
 }

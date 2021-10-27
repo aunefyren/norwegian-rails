@@ -12,11 +12,12 @@ body {
     margin: auto;
     width: 100%;
     text-align: center;
-    padding: 5em;
+    padding: 2.5em;
 }
 
 .page {
     width: 30em;
+    max-width: 100%;
     box-sizing: border-box;
     margin: auto;
     padding: 2em;
@@ -53,20 +54,33 @@ h1, h2, p {
     margin: auto;
     display: inline-block;
     box-sizing: border-box;
+    background-color: #c9c9c9;
+    border: 1px solid grey!important;
+    overflow: hidden;
 }
 
 .navbar-items {
     display: inline-block;
     margin: auto;
     box-sizing: border-box;
+    height: 100%;
 }
 
 .navbar-brand, .nav-item {
     box-sizing: border-box;
-    height: 100%;
     margin: auto;
     padding: 0.5em;
     text-align: center;
+    text-decoration: none;
+    float: left;
+    height: 100%;
+    vertical-align: 50%;
+
+}
+
+.navbar-brand:hover, .nav-item:hover {
+  background-color: #ddd;
+  color: black;
 }
 
 form {
@@ -99,5 +113,5 @@ input {
 }
 
 input:read-only {
-  background-color: lightgrey;
+    background-color: lightgrey;
 }
