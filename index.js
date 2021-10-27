@@ -32,22 +32,22 @@ function loadLogin() {
     <div class="page">
         <h2>Log in</h2>
         <form id='login_form' action='javascript:void(0);' onsubmit="return performLogin();" method="post" enctype="multipart/form-data">
-        <div class='form-group2'>
+        <div class='form-group'>
             <label for='user_email'>Email</label>
             <input type='email' class='form-control' id='user_email' name='user_email' placeholder='Write your email.' value='` + written_email + `' required>
         </div>
 
-        <div class='form-group2'>
+        <div class='form-group'>
             <label for='user_password'>Password</label>
             <input type='password' class='form-control' id='user_password' name='user_password' placeholder='Write your password.' required>
         </div>
 
-        <div class="form-group2">
-            <input type="checkbox" name="policy" id="policy" required />
-            <label for="policy">I allow this site to harvest my information.</a></label>
+        <div class="form-group">
+            <input type="checkbox" name="policy" id="policy" style="display:inline-block!important;" required />
+            <label for="policy" style="display:inline-block!important;">I allow this site to harvest my information.</a></label>
         </div>
 
-        <div class='form-group4'>
+        <div class='form-group'>
             <button type='submit' id='log_in_button' class='btn btn-primary'>Log in</button>
         </div>
 
@@ -109,42 +109,42 @@ function loadRegister() {
     <div class="page">
         <h2>Register</h2>
         <form id='register_form' action='javascript:void(0);' onsubmit="return performRegister();" method="post" enctype="multipart/form-data">
-        <div class='form-group2'>
+        <div class='form-group'>
             <label for='user_email'>Email</label>
             <input type='email' class='form-control' id='user_email' name='user_email' placeholder='Write your email.' value='` + written_email + `' required>
         </div>
 
-        <div class='form-group2'>
+        <div class='form-group'>
             <label for='user_firstname'>First name</label>
             <input type='text' class='form-control' id='user_firstname' name='user_firstname' placeholder='Write your name.' value='' required>
         </div>
 
-        <div class='form-group2'>
+        <div class='form-group'>
             <label for='user_lastname'>Last name</label>
             <input type='text' class='form-control' id='user_lastname' name='user_lastname' placeholder='Write your last name.' value='' required>
         </div>
 
-        <div class='form-group2'>
+        <div class='form-group'>
             <label for='user_birth_date'>Birthday</label>
             <input type='date' class='form-control' id='user_birth_date' name='user_birth_date' placeholder='' value='' required>
         </div>
 
-        <div class='form-group2'>
+        <div class='form-group'>
             <label for='user_password'>Password</label>
             <input type='password' class='form-control' id='user_password' name='user_password' placeholder='Write your password.' required>
         </div>
 
-        <div class='form-group2'>
+        <div class='form-group'>
             <label for='user_password_2'>Repeat password</label>
             <input type='password' class='form-control' id='user_password_2' name='user_password_2' placeholder='Write your password again.' required>
         </div>
 
-        <div class="form-group2">
-            <input type="checkbox" name="policy" id="policy" required />
-            <label for="policy">I allow this site to harvest my information.</a></label>
+        <div class="form-group">
+            <input type="checkbox" name="policy" id="policy" style="display:inline-block!important;" required />
+            <label for="policy" style="display:inline-block!important;">I allow this site to harvest my information.</a></label>
         </div>
 
-        <div class='form-group4'>
+        <div class='form-group'>
             <button type='submit' id='register_button' class='btn btn-primary'>Register</button>
         </div>
 
@@ -156,9 +156,12 @@ function loadRegister() {
 function performRegister(){
     // get form data
     var user_email = document.getElementById("user_email").value;
+    var user_firstname = document.getElementById("user_firstname").value;
+    var user_lastname = document.getElementById("user_lastname").value;
+    var user_birth_date = document.getElementById("user_birth_date").value;
     var user_password = document.getElementById("user_password").value;
     var user_password_2 = document.getElementById("user_password_2").value;
-    var form = {"user_email" : user_email, "user_password" : user_password};
+    var form = {"user_email" : user_email, "user_password" : user_password, "user_firstname" : user_firstname, "user_lastname" : user_lastname, "user_birth_date" : user_birth_date};
     var form_data = JSON.stringify(form);
 
     if(user_password !== user_password_2) {
@@ -174,11 +177,14 @@ function performRegister(){
                     // tell the user account was updated
                     error(result.message);
                     var password = document.getElementById("user_password");
+                    var password_2 = document.getElementById("user_password_2");
                     password.value = "";
+                    password_2.value = "";
                 } else if(!result.error) {
                     // store new jwt to coookie
-                    success(result.message);
                     setCookie("jwt-nor-rails", result.jwt, 1);
+                    loadLogin();
+                    success(result.message);
                 }
             } else {
                error("Could not reach API.");
@@ -210,37 +216,37 @@ function loadUser() {
     <div class="page">
         <h2>Register</h2>
         <form id='register_form' action='javascript:void(0);' onsubmit="return performRegister();" method="post" enctype="multipart/form-data">
-        <div class='form-group2'>
+        <div class='form-group'>
             <label for='user_email'>Email</label>
             <input type="text" class="form-control" id="user_email" name="user_email" value="` + login_data.data.user_email + `" readonly>
         </div>
 
-        <div class='form-group2'>
+        <div class='form-group'>
             <label for='user_firstname'>First name</label>
             <input type='text' class='form-control' id='user_firstname' name='user_firstname' value='` + login_data.data.user_firstname + `' readonly>
         </div>
 
-        <div class='form-group2'>
+        <div class='form-group'>
             <label for='user_lastname'>Last name</label>
             <input type='text' class='form-control' id='user_lastname' name='user_lastname' value='` + login_data.data.user_lastname + `' readonly>
         </div>
 
-        <div class='form-group2'>
+        <div class='form-group'>
             <label for='user_birth_date'>Birthday</label>
             <input type='date' class='form-control' id='user_birth_date' name='user_birth_date' value='` + login_data.data.user_birth_date + `' readonly>
         </div>
 
-        <div class='form-group2'>
+        <div class='form-group'>
             <label for='user_creation'>User since</label>
             <input type='date' class='form-control' id='user_creation' name='user_creation' value='` + user_creation[0] + `' readonly>
         </div>
 
-        <div class='form-group2'>
+        <div class='form-group'>
             <label for='user_password'>Password</label>
             <input type='password' class='form-control' id='user_password' name='user_password' placeholder='Write your password.' required>
         </div>
 
-        <div class='form-group4'>
+        <div class='form-group'>
             <button type='submit' id='register_button' class='btn btn-primary'>Save changes</button>
         </div>
 

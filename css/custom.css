@@ -7,13 +7,28 @@ body {
     box-sizing: border-box;
 }
 
-.form-group {
-    width: 16em !important;
-    max-width: 100%;
-    padding: 1em;
-    display: inline-block;
+#content {
+    box-sizing: border-box;
     margin: auto;
-    float: none;
+    width: 100%;
+    text-align: center;
+    padding: 5em;
+}
+
+.page {
+    width: 30em;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 2em;
+    text-align: center;
+    background-color: white;
+    border: 1px solid #ccc!important;
+    border-radius: 8px;
+}
+
+h1, h2, p {
+    text-align: left;
+    margin: auto;
 }
 
 .show {
@@ -52,4 +67,37 @@ body {
     margin: auto;
     padding: 0.5em;
     text-align: center;
+}
+
+form {
+    max-width: 60em;
+    margin: auto;
+}
+
+.form-group {
+    max-width: 25em;
+    display: table;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 0.5em;
+}
+
+label {
+    display: block;
+}
+
+input {
+    border-radius: 4px;
+}
+
+.form-control {
+    max-width: 100%;
+    padding: 8px 12px;
+    margin: 4px 0;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+input:read-only {
+  background-color: lightgrey;
 }
