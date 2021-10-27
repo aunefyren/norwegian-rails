@@ -85,6 +85,7 @@ class User{
             $this->user_lastname = $row['user_lastname'];
             $this->user_email = $row['user_email'];
             $this->user_birth_date = $row['user_birth_date'];
+            $this->user_creation = $row['user_creation'];
             $this->user_password = $row['user_password'];
             $this->user_activated = $row['user_activated'];
             $this->user_enabled = $row['user_enabled'];

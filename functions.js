@@ -55,9 +55,9 @@ function getLogin(cookie) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            loadPage(true, this.responseText);
+            loadInitial(true, this.responseText);
         } else {
-            loadPage(false, '{"error" : "true", "message":"Du må logge inn."}');
+            loadInitial(false, '{"error" : true, "message":"You must log in."}');
         }
     };
     xhttp.withCredentials = true;
@@ -108,4 +108,23 @@ function showLoggedOutMenu() {
     var account = document.getElementById("account");
     account.classList.remove("show");
     account.classList.add("hide");
+}
+
+function info(message) {
+    document.getElementById('response').innerHTML = "<div class='alert alert-info'>" + message + "</div>";
+    window.scrollTo(0, 0);
+}
+
+function success(message) {
+    document.getElementById('response').innerHTML = "<div class='alert alert-success'>" + message + "</div>";
+    window.scrollTo(0, 0);
+}
+
+function error(message) {
+    document.getElementById('response').innerHTML = "<div class='alert alert-danger'>" + message + "</div>";
+    window.scrollTo(0, 0);
+}
+
+function clear() {
+    document.getElementById('response').innerHTML = "";
 }

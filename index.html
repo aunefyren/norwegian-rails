@@ -23,16 +23,16 @@
 
     <nav class="navbar">
         <div class="nav-logo">
-            <a href="./"><img style="box-sizing: border-box;height: 100%;" src="assets/logo/logo.png"></a>
+            <a href="#" onclick="loadPage();"><img style="box-sizing: border-box;height: 100%;" src="assets/logo/logo.png"></a>
         </div>
 
         <div class="navbar-items">
-            <a class="navbar-brand show" href="./">Norwegian Rails</a>
-            <a class="nav-item show" href="#" id='tickets'>Tickets</a>
-            <a class="nav-item hide" href="#" id='account'>My account</a>
-            <a class="nav-item show" href="#" id='log_in'>Log in</a>
-            <a class="nav-item show" href="#" id='register'>Register</a>
-            <a class="nav-item hide" href="#" id='log_out'>Log out</a>
+            <a class="navbar-brand show" href="#" onclick="loadPage();" id="homepage">Norwegian Rails</a>
+            <a class="nav-item show" href="#" id='tickets'>Travel</a>
+            <a class="nav-item hide" href="#" onclick="loadUser();" id='account'>My account</a>
+            <a class="nav-item show" href="#" onclick="loadLogin();" id='log_in'>Log in</a>
+            <a class="nav-item show" href="#" onclick="loadRegister();" id='register'>Register</a>
+            <a class="nav-item hide" href="#" onclick="performLogout();" id='log_out'>Log out</a>
         </div>
 
     </nav>
@@ -46,11 +46,11 @@
         <div class="col">
 
             <!-- where prompt / messages will appear -->
-
             <div id="response"></div>
 
             <!-- where main content will appear -->
-            <div id="content"></div>
+            <div id="content">
+            </div>
 
         </div>
     </div>
@@ -59,15 +59,17 @@
 <!-- /container -->
 
 <script>
-var jwt;
-showLoggedOutMenu();
-//showLoggedInMenu();
-//jwt = getCookie('jwt');
-//getLogin(jwt);
+    //Define variables for later
+    var written_email = "";
+    var login_data;
+
+    showLoggedOutMenu();
+    var jwt = getCookie('jwt-nor-rails');
+    getLogin(jwt);
 </script>
 
 <noscript>
-         <h3>This website requires JavaScript.</h3>
+    <h3>This website requires JavaScript.</h3>
 </noscript>
 
 </body>
