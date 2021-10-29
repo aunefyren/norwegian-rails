@@ -126,4 +126,45 @@ class User{
         return false;
     }
 
+    // update a user in the database
+    function update(){
+
+        // if password needs to be updated
+        $password_set=!empty($this->user_password) ? ", user_password = :user_password" : "";
+
+        // if no posted password, do not update the password
+        $query = "UPDATE " . $this->table_name . "
+                SET
+                    user_email = :user_email
+                    {$password_set}
+                WHERE user_id = :user_id";
+
+        // prepare the query
+        $stmt = $this->conn->prepare($query);
+
+        // sanitize
+        $this->b_epost=htmlspecialchars(strip_tags($this->user_email));
+
+        // bind the values from the form
+        $stmt->bindParam(':user_email', $this->user_email);
+
+        // hash the password before saving to database
+        if(!empty($this->user_password)){
+            $this->user_password = htmlspecialchars(strip_tags($this->user_password));
+            $password_hash = password_hash($this->user_password, PASSWORD_BCRYPT);
+            $stmt->bindParam(':user_password', $password_hash);
+        }
+
+        // unique ID of record to be edited
+        $stmt->bindParam(':user_id', $this->user_id);
+
+        // execute the query
+        if($stmt->execute()){
+
+            return true;
+        }
+
+        return false;
+    }
+
 }

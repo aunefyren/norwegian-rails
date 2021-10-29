@@ -12,12 +12,38 @@ body {
     margin: auto;
     width: 100%;
     text-align: center;
-    padding: 2.5em;
+    padding: 1em 2.5em;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.alert {
+    margin: 1em auto auto auto;
+    display: block;
+    box-sizing: content-box;
+    text-align: center;
+    background-color: white;
+    border: 1px solid #ccc!important;
+    border-radius: 8px;
+    max-width: 29em;
+    padding: 0.5em;
+}
+
+.alert-danger {
+    background-color: #ef6868f5;
+}
+
+.alert-success {
+    background-color: #73ef68f5;
+}
+
+.alert-info {
+    background-color: #68adeff5;
 }
 
 .page {
     width: 30em;
     max-width: 100%;
+    min-width: 80%;
     box-sizing: border-box;
     margin: auto;
     padding: 2em;
@@ -86,6 +112,7 @@ h1, h2, p {
 form {
     max-width: 60em;
     margin: auto;
+    font-size: 1em;
 }
 
 .form-group {
@@ -94,6 +121,18 @@ form {
     box-sizing: border-box;
     margin: auto;
     padding: 0.5em;
+    font-size: 1em;
+}
+
+.form-button {
+    color: white;
+    padding: 0.5em 1em;
+    border: none;
+    cursor: pointer;
+    background-color: #4260c7;
+    border-radius: 4px;
+    min-width: 5em;
+    font-size: 1em;
 }
 
 label {
@@ -102,11 +141,13 @@ label {
 
 input {
     border-radius: 4px;
+    border: none;
+    background-color: #efefef;
 }
 
 .form-control {
     max-width: 100%;
-    padding: 8px 12px;
+    padding: 0.75em 1.25em;
     margin: 4px 0;
     box-sizing: border-box;
     font-size: 1em;

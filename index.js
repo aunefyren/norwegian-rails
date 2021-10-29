@@ -48,7 +48,7 @@ function loadLogin() {
         </div>
 
         <div class='form-group'>
-            <button type='submit' id='log_in_button' class='btn btn-primary'>Log in</button>
+            <button type='submit' class='form-button' id='log_in_button' class='btn btn-primary'>Log in</button>
         </div>
 
         </form>
@@ -145,7 +145,7 @@ function loadRegister() {
         </div>
 
         <div class='form-group'>
-            <button type='submit' id='register_button' class='btn btn-primary'>Register</button>
+            <button type='submit' class='form-button' id='register_button' class='btn btn-primary'>Register</button>
         </div>
 
         </form>
@@ -215,11 +215,11 @@ function loadUser() {
 
     var html = `
     <div class="page">
-        <h2>Register</h2>
-        <form id='register_form' action='javascript:void(0);' onsubmit="return performRegister();" method="post" enctype="multipart/form-data">
+        <h2>My account</h2>
+        <form id='register_form' action='javascript:void(0);' onsubmit="return performUser();" method="post" enctype="multipart/form-data">
         <div class='form-group'>
             <label for='user_email'>Email</label>
-            <input type="text" class="form-control" id="user_email" name="user_email" value="` + login_data.data.user_email + `">
+            <input type="text" class="form-control" id="user_email" name="user_email" value="` + login_data.data.user_email + `" placeholder="Your email address.">
         </div>
 
         <div class='form-group'>
@@ -258,7 +258,7 @@ function loadUser() {
         </div>
 
         <div class='form-group'>
-            <button type='submit' id='register_button' class='btn btn-primary'>Save changes</button>
+            <button type='submit' class='form-button' id='register_button' class='btn btn-primary'>Save changes</button>
         </div>
 
         </form>
@@ -275,19 +275,13 @@ function performUser(){
     var user_password = document.getElementById("user_password").value;
     var user_password_2 = document.getElementById("user_password_2").value;
     var pass_change = false;
-    var email_change
 
     if((user_password !== user_password_2) && (user_password !== '' && user_password_2 !== '')) {
         error('The new passwords must match.');
         return;
     }
 
-    if((user_email !== login_data.data.user_email) && (user_password !== '' && user_password_2 !== '')) {
-        error('The new passwords must match.');
-        return;
-    }
-
-    var form = {"user_email" : user_email, "user_password" : user_password, "user_firstname" : user_firstname, "user_lastname" : user_lastname, "user_birth_date" : user_birth_date};
+    var form = {"jwt" : jwt, "user_password" : user_password, "user_email" : user_email, "user_password_orig" : user_password_orig};
     var form_data = JSON.stringify(form);
 
     var xhttp = new XMLHttpRequest();
@@ -304,7 +298,6 @@ function performUser(){
                 } else if(!result.error) {
                     // store new jwt to coookie
                     setCookie("jwt-nor-rails", result.jwt, 1);
-                    loadLogin();
                     success(result.message);
                 }
             } else {
@@ -318,7 +311,7 @@ function performUser(){
         }
     };
     xhttp.withCredentials = true;
-    xhttp.open("post", "api/create_user.php");
+    xhttp.open("post", "api/update_user.php");
     xhttp.send(form_data);
     return false;
 }
