@@ -22,19 +22,35 @@
 <!-- navbar -->
 
     <nav class="navbar">
-        <div class="nav-logo">
-            <a href="#" onclick="loadPage();"><img style="box-sizing: border-box;height: 100%; padding: 0.5em 0 0.5em 0.5em;" src="assets/logo/logo.png"></a>
-        </div>
+        <ul class="navbar-items">
+            <li class="nav-item show">
+                <a href="#" onclick="loadPage();"><img style="height: 100%; box-sizing: border-box;height: 100%; padding: 0;" src="assets/logo/logo.png"></a>
+            </li>
 
-        <div class="navbar-items">
-            <a class="navbar-brand show" href="#" onclick="loadPage();" id="homepage">Norwegian Rails</a>
-            <a class="nav-item show" href="#" id='tickets'>Travel</a>
-            <a class="nav-item hide" href="#" onclick="loadUser();" id='account'>My account</a>
-            <a class="nav-item show" href="#" onclick="loadLogin();" id='log_in'>Log in</a>
-            <a class="nav-item show" href="#" onclick="loadRegister();" id='register'>Register</a>
-            <a class="nav-item hide" href="#" onclick="performLogout();" id='log_out'>Log out</a>
-        </div>
+            <li class="nav-item show" id="homepage">
+                <a href="#" onclick="loadPage();">Norwegian Rails</a>
+            </li>
 
+            <li class="nav-item show">
+                <a href="#" id='tickets'>Travel</a>
+            </li>
+
+            <li class="nav-item show">
+                <a href="#" onclick="loadUser();" id='account'>My account</a>
+            </li>
+
+            <li class="nav-item show">
+                <a href="#" onclick="loadLogin();" id='log_in'>Log in</a>
+            </li>
+
+            <li class="nav-item show">
+                <a href="#" onclick="loadRegister();" id='register'>Register</a>
+            </li>
+
+            <li class="nav-item show">
+                <a href="#" onclick="performLogout();" id='log_out'>Log out</a>
+            </li>
+        </ul>
     </nav>
 
 <!-- /navbar -->

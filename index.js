@@ -134,7 +134,7 @@ function loadRegister() {
         </div>
 
         <hr>
-        
+
         <div class='form-group'>
             <label for='user_password'>Password</label>
             <input type='password' class='form-control' id='user_password' name='user_password' placeholder='Write your password.' required>
