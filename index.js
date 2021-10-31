@@ -15,8 +15,10 @@ function loadPage() {
                     <h2> Norwegian Rails </h5>
 
                     <p>
-                        This is a page for Norwegian Rails yo.
+                        Your journey, your rules.
                     </p>
+
+                    <img src="assets/banner.jpg" style="width: 100%; height: 30em; object-fit: cover; border-radius: 4px;">
                 </div>
     `;
 
@@ -42,12 +44,12 @@ function loadLogin() {
             <input type='password' class='form-control' id='user_password' name='user_password' placeholder='Write your password.' required>
         </div>
 
-        <div class="form-group">
+        <div class="form-group2">
             <input type="checkbox" name="policy" id="policy" style="display:inline-block!important;" required />
             <label for="policy" style="display:inline-block!important;">I allow this site to harvest my information.</a></label>
         </div>
 
-        <div class='form-group'>
+        <div class='form-group2'>
             <button type='submit' class='form-button' id='log_in_button' class='btn btn-primary'>Log in</button>
         </div>
 
@@ -114,6 +116,8 @@ function loadRegister() {
             <input type='email' class='form-control' id='user_email' name='user_email' placeholder='Write your email.' value='` + written_email + `' required>
         </div>
 
+        <hr>
+
         <div class='form-group'>
             <label for='user_firstname'>First name</label>
             <input type='text' class='form-control' id='user_firstname' name='user_firstname' placeholder='Write your name.' value='' required>
@@ -129,6 +133,8 @@ function loadRegister() {
             <input type='date' class='form-control' id='user_birth_date' name='user_birth_date' placeholder='' value='' required>
         </div>
 
+        <hr>
+        
         <div class='form-group'>
             <label for='user_password'>Password</label>
             <input type='password' class='form-control' id='user_password' name='user_password' placeholder='Write your password.' required>
@@ -139,12 +145,12 @@ function loadRegister() {
             <input type='password' class='form-control' id='user_password_2' name='user_password_2' placeholder='Write your password again.' required>
         </div>
 
-        <div class="form-group">
+        <div class="form-group2">
             <input type="checkbox" name="policy" id="policy" style="display:inline-block!important;" required />
             <label for="policy" style="display:inline-block!important;">I allow this site to harvest my information.</a></label>
         </div>
 
-        <div class='form-group'>
+        <div class='form-group2'>
             <button type='submit' class='form-button' id='register_button' class='btn btn-primary'>Register</button>
         </div>
 
@@ -232,6 +238,8 @@ function loadUser() {
             <input type='password' class='form-control' id='user_password_2' name='user_password_2' placeholder='Repeat your new password.'>
         </div>
 
+        <hr>
+
         <div class='form-group'>
             <label for='user_firstname'>First name</label>
             <input type='text' class='form-control' id='user_firstname' name='user_firstname' value='` + login_data.data.user_firstname + `' readonly>
@@ -252,12 +260,14 @@ function loadUser() {
             <input type='date' class='form-control' id='user_creation' name='user_creation' value='` + user_creation[0] + `' readonly>
         </div>
 
+        <hr>
+
         <div class='form-group'>
             <label for='user_password_orig'>Password</label>
             <input type='password' class='form-control' id='user_password_orig' name='user_password_orig' placeholder='Write your password.' required>
         </div>
 
-        <div class='form-group'>
+        <div class='form-group2'>
             <button type='submit' class='form-button' id='register_button' class='btn btn-primary'>Save changes</button>
         </div>
 
