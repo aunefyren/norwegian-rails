@@ -100,22 +100,22 @@ class User{
     function check_email(){
 
         // query to check if email exists
-        $query = "SELECT COUNT(*) from " . $this->table_name . " WHERE user_email = ?";
+        $query = "SELECT * from " . $this->table_name . " WHERE user_email = ?";
 
         // prepare the query
         $stmt = $this->conn->prepare( $query );
 
         // sanitize
-        $this->user_email=htmlspecialchars(strip_tags($this->user_email));
+        $this->user_email = htmlspecialchars(strip_tags($this->user_email));
 
         // bind given email value
-        $stmt->bindParam(1, $this->user_email, PDO::PARAM_INT);
+        $stmt->bindParam(1, $this->user_email, PDO::PARAM_STR);
 
         // execute the query
         $stmt->execute();
 
         // if email exists, assign values to object properties for easy access and use for php sessions
-        if($stmt->fetchColumn()) {
+        if($stmt->rowCount() > 0) {
             return true;
         }
 		

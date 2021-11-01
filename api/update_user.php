@@ -51,7 +51,7 @@ if($jwt){
         include_once "./login_method.php";
         $result = json_decode(perform_login($user_email_orig, $user_password_orig));
         if($result->error) {
-            echo json_encode(array("message" => "Old password is not accepted.", "error" => true));
+            echo json_encode(array("message" => "Old password was not accepted.", "error" => true));
             exit;
         }
 
@@ -60,6 +60,18 @@ if($jwt){
             echo json_encode(array("message" => "Email is already in use.", "error" => true));
             exit();
         }
+		
+		// Check if email is valid
+		if (!filter_var($user->user_email, FILTER_VALIDATE_EMAIL)) {
+			echo json_encode(array("message" => "Email is not a valid email address.", "error" => true));
+			exit;
+		}
+
+		// Check that password is valid
+		if (!preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/", $user->user_password)) {
+			echo json_encode(array("message" => "Password is not valid. Minimum eight characters, at least one letter and one number.", "error" => true));
+			exit;
+		}
 
         // update the user
         if($user->update()){

@@ -31,10 +31,28 @@ if(empty($data)) {
 @$user->user_password = $data->user_password;
 @$user->user_birth_date = htmlspecialchars(strip_tags($data->user_birth_date));
 
-// create the user
+// Check if email is in use
 if(!empty($user->user_email) && $user->check_email()) {
     // display message: unable to create user
     echo json_encode(array("message" => "Email is already in use.", "error" => true));
+    exit;
+}
+
+// Check if email is valid
+if (!filter_var($user->user_email, FILTER_VALIDATE_EMAIL)) {
+	echo json_encode(array("message" => "Email is not a valid email address.", "error" => true));
+    exit;
+}
+
+// Check if birthday is valid
+if (!validateDate($user->user_birth_date)) {
+	echo json_encode(array("message" => "Birthday is not valid.", "error" => true));
+    exit;
+}
+
+// Check that password is valid
+if (!preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/", $user->user_password)) {
+	echo json_encode(array("message" => "Password is not valid. Minimum eight characters, at least one letter and one number.", "error" => true));
     exit;
 }
 
@@ -56,5 +74,10 @@ else{
 
     // display message: unable to create user
     echo json_encode(array("message" => "User was not created.", "error" => true));
+}
+
+function validateDate($date, $format = 'Y-m-d') {
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
 }
 ?>

@@ -137,7 +137,7 @@ function loadRegister() {
 
         <div class='form-group'>
             <label for='user_password'>Password</label>
-            <input type='password' class='form-control' id='user_password' name='user_password' placeholder='Write your password.' required>
+            <input type='password' class='form-control' id='user_password' name='user_password' placeholder='Write your password.' minlength="8" required>
         </div>
 
         <div class='form-group'>
@@ -175,6 +175,8 @@ function performRegister(){
         error('The passwords must match.');
         return;
     }
+	
+	console.log(form_data);
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -230,12 +232,12 @@ function loadUser() {
 
         <div class='form-group'>
             <label for='user_password'>New password</label>
-            <input type='password' class='form-control' id='user_password' name='user_password' placeholder='Write your new password.'>
+            <input type='password' class='form-control' id='user_password' name='user_password' placeholder='Write your new password.' minlength="8">
         </div>
 
         <div class='form-group'>
             <label for='user_password_2'>Repeat new password</label>
-            <input type='password' class='form-control' id='user_password_2' name='user_password_2' placeholder='Repeat your new password.'>
+            <input type='password' class='form-control' id='user_password_2' name='user_password_2' placeholder='Repeat your new password.' minlength="8">
         </div>
 
         <hr>
@@ -303,8 +305,10 @@ function performUser(){
                     error(result.message);
                     var password = document.getElementById("user_password");
                     var password_2 = document.getElementById("user_password_2");
+					var password_3 = document.getElementById("user_password_orig");
                     password.value = "";
                     password_2.value = "";
+					password_3.value = "";
                 } else if(!result.error) {
                     // store new jwt to coookie
                     setCookie("jwt-nor-rails", result.jwt, 1);
