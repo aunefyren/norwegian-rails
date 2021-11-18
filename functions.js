@@ -75,7 +75,7 @@ function showLoggedInMenu() {
     register.classList.remove("show");
     register.classList.add("hide");
 
-    var tickets = document.getElementById("tickets");
+    var tickets = document.getElementById("travel");
     tickets.classList.remove("hide");
     tickets.classList.add("show");
 
@@ -97,9 +97,9 @@ function showLoggedOutMenu() {
     register.classList.remove("hide");
     register.classList.add("show");
 
-    var tickets = document.getElementById("tickets");
-    tickets.classList.remove("hide");
-    tickets.classList.add("show");
+    var tickets = document.getElementById("travel");
+    tickets.classList.remove("show");
+    tickets.classList.add("hide");
 
     var log_out = document.getElementById("log_out");
     log_out.classList.remove("show");

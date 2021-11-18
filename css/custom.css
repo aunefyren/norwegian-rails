@@ -122,8 +122,8 @@ p {
     box-sizing: inherit;
     font-size: 1.25em;
     margin: auto;
-    height: 100%;
     display: flex;
+    padding: 0 0.5em;
 }
 .navbar-brand:hover, .nav-item:hover {
     background-color: #490711;
@@ -190,5 +190,23 @@ input {
 }
 
 input:read-only {
+    background-color: lightgrey;
+}
+
+.module {
+    margin: auto;
+    display: block;
+}
+
+.ticket {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.returned {
     background-color: lightgrey;
 }
