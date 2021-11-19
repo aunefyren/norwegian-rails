@@ -24,7 +24,7 @@ class Seat{
 
         // query to check if email exists
         $query = "SELECT DISTINCT `seats`.`seat_id`, `seats`.`seat_row`, `seats`.`seat_number`, `seats`.`seat_hc`, `trips`.`trip_id`, `trains`.`train_id` " .
-                "FROM `seats`,`trains`,`trips`,`tickets` " .
+                "FROM `seats`,`trains`,`trips` " .
                 "WHERE `seats`.`train_id` = `trains`.`train_id` AND `trains`.`train_id` = `trips`.`train_id` AND " .
                 "`trips`.`trip_id` = '" . $this->trip_id . "' AND `seats`.`seat_enabled` = '1'";
 
@@ -66,7 +66,7 @@ class Seat{
 
         } else {
 
-            $json = json_encode(array("message" => "No results.", "error" => true, "seats" => array()));
+            $json = json_encode(array("message" => "No results.", "error" => false, "seats" => array()));
             return $json;
         }
     }

@@ -175,8 +175,6 @@ function performRegister(){
         error('The passwords must match.');
         return;
     }
-	
-	console.log(form_data);
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -499,6 +497,9 @@ function loadTravel() {
         <div class="module" id="seat_window">
         </div>
 
+        <div class="module" id="price_window">
+        </div>
+
     </div>
     `;
 
@@ -548,8 +549,6 @@ function performTravel(){
     }
     var form = {"jwt" : jwt, "trip_id" : trip_id};
     var form_data = JSON.stringify(form);
-
-	console.log(form_data);
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -606,4 +605,95 @@ function loadSeats(seats){
         option.value = seats.seats[i].seat_id;
         x.add(option);
     }
+}
+
+function performSeats(){
+    // get form data
+    var trip_id = document.getElementById("trip_id").value;
+    if(trip_id === "") {
+        return;
+    }
+    var form = {"jwt" : jwt, "trip_id" : trip_id};
+    var form_data = JSON.stringify(form);
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            if(result = JSON.parse(this.responseText)) {
+                if(result.error) {
+                    // tell the user account was updated
+                    error(result.message);
+                } else if(!result.error) {
+                    clear();
+                    loadPrice(result);
+                }
+            } else {
+               error("Could not reach API.");
+            }
+
+        } else if(this.readyState == 4 && this.status !== 200) {
+            error("Could not reach API.");
+        } else {
+            info("Loading price...");
+        }
+    };
+    xhttp.withCredentials = true;
+    xhttp.open("post", "api/get_price.php");
+    xhttp.send(form_data);
+    return false;
+}
+
+function loadPrice(price){
+
+    var html = `
+        <form id='choose_travel_form' action='javascript:void(0);' onsubmit="return performBuy();" method="post" enctype="multipart/form-data">
+            <div class='form-group'>
+                    <label for='trip_price_nok'>Price (NOK)</label>
+                    <input type="text" class="form-control" id="trip_price_nok" name="trip_price_nok" value="` + price.price + `" required readonly>
+            </div>
+
+            <div class='form-group2'>
+                <button type='submit' class='form-button' id='seat_select_button' class='btn btn-primary'>Purchase</button>
+            </div>
+        </form>
+        `;
+
+    document.getElementById("price_window").innerHTML = html;
+}
+
+function performBuy(){
+    // get form data
+    var trip_id = document.getElementById("trip_id").value;
+    var seat_id = document.getElementById("seat_id").value;
+    var trip_price_nok = document.getElementById("trip_price_nok").value;
+
+    var form = {"jwt" : jwt, "trip_id" : trip_id, "seat_id" : seat_id, "trip_price_nok" : trip_price_nok};
+    var form_data = JSON.stringify(form);
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            if(result = JSON.parse(this.responseText)) {
+                if(result.error) {
+                    // tell the user account was updated
+                    error(result.message);
+                } else if(!result.error) {
+                    clear();
+                    alert(result.message);
+                    location.reload();
+                }
+            } else {
+               error("Could not reach API.");
+            }
+
+        } else if(this.readyState == 4 && this.status !== 200) {
+            error("Could not reach API.");
+        } else {
+            info("Loading price...");
+        }
+    };
+    xhttp.withCredentials = true;
+    xhttp.open("post", "api/buy_ticket.php");
+    xhttp.send(form_data);
+    return false;
 }

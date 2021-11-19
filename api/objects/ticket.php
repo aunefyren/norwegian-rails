@@ -82,7 +82,7 @@ class Ticket{
 
         } else {
 
-            $json = json_encode(array("message" => "No results.", "error" => true, "tickets" => array()));
+            $json = json_encode(array("message" => "No results.", "error" => false, "tickets" => array()));
             return $json;
         }
     }
@@ -101,5 +101,65 @@ class Ticket{
         } else {
             return false;
         }
+    }
+
+    function get_price(){
+
+        // query to check if email exists
+        $query = "SELECT `trips`.`trip_price_nok` " .
+                "FROM `trips` " .
+                "WHERE `trips`.`trip_id` = " . $this->trip_id;
+
+        $stmt = $this->conn->prepare($query);
+
+        // execute the query
+        $stmt->execute();
+
+        //Bind by column number
+        $stmt->bindColumn(1, $trip_price_nok);
+
+        // get number of rows
+        $num = $stmt->rowCount();
+
+        // if email exists, assign values to object properties for easy access and use for php sessions
+        if($num>0){
+
+            // get record details / values
+            $data = array();
+
+            while($stmt->fetch()){
+                $data[] = array(
+                    'trip_price_nok' => $trip_price_nok
+                    );
+            }
+
+            $json = json_encode(array("price" => $data[0]["trip_price_nok"], "message" => "Price loaded.", "error" => false));
+            return $json;
+
+        } else {
+
+            $json = json_encode(array("message" => "No results.", "error" => true, "price" => null));
+            return $json;
+        }
+    }
+
+    function buy_ticket(){
+        // insert query
+        $query = "INSERT INTO " . $this->table_name .
+                 " SET
+                    trip_id = '" . $this->trip_id . "',
+                    user_id = '" . $this->user_id . "',
+                    ticket_price_nok = '" . $this->ticket_price_nok . "',
+                    seat_id = '" . $this->seat_id . "'";
+
+        // prepare the query
+        $stmt = $this->conn->prepare($query);
+
+        // execute the query, also check if query was successful
+        if($stmt->execute()){
+            return true;
+        }
+
+        return false;
     }
 }

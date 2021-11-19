@@ -62,7 +62,7 @@ class Trip{
 
         } else {
 
-            $json = json_encode(array("message" => "No results.", "error" => true, "trips" => array()));
+            $json = json_encode(array("message" => "No results.", "error" => false, "trips" => array()));
             return $json;
         }
     }
