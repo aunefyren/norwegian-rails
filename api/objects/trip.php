@@ -25,7 +25,7 @@ class Trip{
     function get_trips(){
 
         // query to check if email exists
-        $query = "SELECT trip_id, trip_name, trip_start_location, trip_end_location " .
+        $query = "SELECT trip_id, trip_name, trip_start_location, trip_end_location, trip_datetime " .
                  "FROM " . $this->table_name . " WHERE trip_enabled = '1'";
 
         $stmt = $this->conn->prepare($query);
@@ -38,6 +38,7 @@ class Trip{
         $stmt->bindColumn(2, $trip_name);
         $stmt->bindColumn(3, $trip_start_location);
         $stmt->bindColumn(4, $trip_end_location);
+        $stmt->bindColumn(5, $trip_datetime);
 
         // get number of rows
         $num = $stmt->rowCount();
@@ -53,7 +54,8 @@ class Trip{
                     'trip_id' => $trip_id,
                     'trip_name' => $trip_name,
                     'trip_start_location' => $trip_start_location,
-                    'trip_end_location' => $trip_end_location
+                    'trip_end_location' => $trip_end_location,
+                    'trip_datetime' => $trip_datetime
                     );
             }
 

@@ -521,7 +521,13 @@ function loadTravel() {
                     for(var i = 0; i < trips.trips.length; i++) {
                         var x = document.getElementById("trip_id");
                         var option = document.createElement("option");
-                        option.text = trips.trips[i].trip_name + ': ' + trips.trips[i].trip_start_location + ' - ' + trips.trips[i].trip_end_location;
+                        
+                        var timesplit = trips.trips[i].trip_datetime.split(' ');
+                        var date = timesplit[0];
+                        var full_time = timesplit[1].split(':');
+                        var time = full_time[0] + ':' + full_time[1];
+
+                        option.text = trips.trips[i].trip_name + ': ' + trips.trips[i].trip_start_location + ' - ' + trips.trips[i].trip_end_location + ' (' + date + ') ' + time;
                         option.value = trips.trips[i].trip_id;
                         x.add(option);
                     }
