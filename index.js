@@ -391,6 +391,20 @@ function placeTickets(tickets) {
             </div>
             `;
 
+        var date_time = tickets.tickets[i].trip_datetime;
+        var date = date_time.split(" ");
+        date = date[0].split("-");
+        date = date[2] + '/' + date[1] + '/' + date[0];
+        var time = date_time.split(" ");
+        time = time[1].split(":");
+        time = time[0] + ':' + time[1];
+        html += `
+            <div class='form-group'>
+                <label for='trip_datetime_` + tickets.tickets[i].ticket_id + `'>Trip time</label>
+                <input type="text" class="form-control" id="trip_datetime_` + tickets.tickets[i].ticket_id + `" name="trip_datetime_` + tickets.tickets[i].ticket_id + `" value="` + date + ' ' + time + `" readonly>
+            </div>
+            `;
+
         html += `
             <div class='form-group'>
                 <label for='ticket_price_nok_` + tickets.tickets[i].ticket_id + `'>Price</label>
@@ -523,7 +537,9 @@ function loadTravel() {
                         var option = document.createElement("option");
                         
                         var timesplit = trips.trips[i].trip_datetime.split(' ');
-                        var date = timesplit[0];
+                        var date = timesplit[0].split("-");
+                        date = date[2] + '/' + date[1] + '/' + date[0];
+
                         var full_time = timesplit[1].split(':');
                         var time = full_time[0] + ':' + full_time[1];
 

@@ -104,8 +104,8 @@ CREATE TABLE `trips` (
 --
 
 INSERT INTO `trips` (`trip_id`, `train_id`, `trip_datetime`, `trip_start_location`, `trip_end_location`, `trip_name`, `trip_price_nok`, `trip_enabled`) VALUES
-(1, 1, '2022-03-17 13:48:03', 'Ski', 'Oslo', 'L2', 79, 1),
-(2, 1, '2022-06-16 16:28:21', 'Oslo', 'London', 'X1', 499, 1);
+(1, 1, '2022-03-17 13:50:00', 'Ski', 'Oslo', 'L2', 79, 1),
+(2, 1, '2022-06-16 16:30:00', 'Oslo', 'London', 'X1', 499, 1);
 
 -- --------------------------------------------------------
 

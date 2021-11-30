@@ -26,7 +26,7 @@ class Ticket{
 
         // query to check if email exists
         $query = "SELECT `tickets`.`ticket_id`, `tickets`.`trip_id`, `trips`.`trip_name`, `trips`.`trip_start_location`, `trips`.`trip_end_location`, " .
-                "`tickets`.`user_id`, `tickets`.`ticket_price_nok`, `tickets`.`ticket_purchase_date`, `tickets`.`seat_id`, `seats`.`seat_row`, " .
+                "`trips`.`trip_datetime`, `tickets`.`user_id`, `tickets`.`ticket_price_nok`, `tickets`.`ticket_purchase_date`, `tickets`.`seat_id`, `seats`.`seat_row`, " .
                 "`seats`.`seat_number`, `tickets`.`ticket_returned` " .
                 "FROM `tickets`, `trips`, `seats` " .
                 "WHERE `tickets`.`user_id` = '" . $this->user_id . "' AND `tickets`.`ticket_enabled` = '1' AND `tickets`.`seat_id` = `seats`.`seat_id` " .
@@ -43,13 +43,14 @@ class Ticket{
         $stmt->bindColumn(3, $trip_name);
         $stmt->bindColumn(4, $trip_start_location);
         $stmt->bindColumn(5, $trip_end_location);
-        $stmt->bindColumn(6, $user_id);
-        $stmt->bindColumn(7, $ticket_price_nok);
-        $stmt->bindColumn(8, $ticket_purchase_date);
-        $stmt->bindColumn(9, $seat_id);
-        $stmt->bindColumn(10, $seat_row);
-        $stmt->bindColumn(11, $seat_number);
-        $stmt->bindColumn(12, $ticket_returned);
+        $stmt->bindColumn(6, $trip_datetime);
+        $stmt->bindColumn(7, $user_id);
+        $stmt->bindColumn(8, $ticket_price_nok);
+        $stmt->bindColumn(9, $ticket_purchase_date);
+        $stmt->bindColumn(10, $seat_id);
+        $stmt->bindColumn(11, $seat_row);
+        $stmt->bindColumn(12, $seat_number);
+        $stmt->bindColumn(13, $ticket_returned);
 
         // get number of rows
         $num = $stmt->rowCount();
@@ -67,6 +68,7 @@ class Ticket{
                     'trip_name' => $trip_name,
                     'trip_start_location' => $trip_start_location,
                     'trip_end_location' => $trip_end_location,
+                    'trip_datetime' => $trip_datetime,
                     'user_id' => $user_id,
                     'ticket_price_nok' => $ticket_price_nok,
                     'ticket_purchase_date' => $ticket_purchase_date,
