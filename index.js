@@ -1,6 +1,6 @@
 function loadInitial(state, result) {
     login_data = JSON.parse(result);
-
+    
     if(!login_data.error) {
         showLoggedInMenu();
     }
